@@ -1,3 +1,16 @@
 main{
     border: 1px solid black;
 }
+.movie-container{
+    display: grid;
+    color: white;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax( 200px, 1fr) );
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+}
+.movie-item{
+    padding: 2.4rem;
+    color: white;
+}

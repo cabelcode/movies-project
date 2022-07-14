@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class CommentsController extends Controller
 {
@@ -14,26 +14,8 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        //
-
-        /* $query = 'http://localhost:3050/search/batman';
-        echo $query;
-        $cURLConnection = curl_init();
-        curl_setopt($cURLConnection, CURLOPT_URL, $query);
-        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($cURLConnection, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json'
-        ));
-        $result = curl_exec($cURLConnection);
-        var_dump($result);
-        echo($result);
-        curl_close($cURLConnection); */
-
-        $result = Http::get('http://localhost:3050/search/batman');
-
-        echo $result;
-        return view('home', ['data' => $result] );
+    
+     
     }
 
     /**
@@ -53,8 +35,14 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $comment = new Comments();
+        $comment->title = $request->input('book_title');
+        $comment->author = $request->input('book_author');
+        $comment->description = $request->input('book_description');
+        $comment->book_released = $request->input('book_year');
+
+        //$comment->save();
     }
 
     /**
