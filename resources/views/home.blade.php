@@ -16,10 +16,7 @@
             @endif
 
             <main>
-                <form class="search-form" action="{{route('movie.store')}}" method="Post">
-                    <input type="text" name="searcb"/>
-                    <input type="submit"/>
-                </form>
+        
                 <div class="movie-container">
                     @foreach ($data as $item)
                         @switch(strtolower($item['Colour']))
@@ -39,9 +36,11 @@
                                 <div class="movie-item bg-white border-red-white border-solid hover:border-4 hover:bg-transparent">
                         @endswitch
                             <div class="card">
-                                <h2 class="title">{{$item['Title']}}</h2>
-                                <p class="year">{{$item['Year']}}</p>
-                                <img src={{$item['Poster']}}/>
+                                <a href="{{route('movie', ['id' => $item['imdbID']])}}">
+                                    <h2 class="title">{{$item['Title']}}</h2>
+                                    <p class="year">{{$item['Year']}}</p>
+                                    <img src={{$item['Poster']}}/>
+                                </a>
                             </div>
                         </div>
                     @endforeach

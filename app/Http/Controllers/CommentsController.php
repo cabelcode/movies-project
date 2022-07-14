@@ -36,12 +36,13 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {   
-        $comment = new Comments();
+        print_r($request->input('commentInput'));
+       /*  $comment = new Comments();
         $comment->title = $request->input('book_title');
         $comment->author = $request->input('book_author');
         $comment->description = $request->input('book_description');
         $comment->book_released = $request->input('book_year');
-
+ */
         //$comment->save();
     }
 

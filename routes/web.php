@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::get( '/movies', [CommentsController::class, 'index'] );
+Route::get( '/movie/{id}', [MoviesController::class, 'show'] )->name('movie');
+
+Route::resource('comments', CommentsController::class);
 
 require __DIR__.'/auth.php';

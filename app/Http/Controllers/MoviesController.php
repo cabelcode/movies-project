@@ -14,21 +14,6 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        
-        /* $query = 'http://localhost:3050/search/batman';
-        echo $query;
-        $cURLConnection = curl_init();
-        curl_setopt($cURLConnection, CURLOPT_URL, $query);
-        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($cURLConnection, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json'
-        ));
-        $result = curl_exec($cURLConnection);
-        var_dump($result);
-        echo($result);
-        curl_close($cURLConnection); */
-
         $res = Http::get('http://localhost:3050');
         $result = json_decode($res, true);
 
@@ -77,7 +62,10 @@ class MoviesController extends Controller
      */
     public function show($id)
     {
-        //
+        // 
+        $res = Http::get("http://localhost:3050/id/$id");
+        $result = json_decode($res, true);
+        return view('single', ['data' => $result['results']]);
     }
 
     /**
