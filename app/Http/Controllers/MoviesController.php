@@ -6,6 +6,7 @@ use App\Models\Comments;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\Console\Input\Input;
 
 class MoviesController extends Controller
 {
@@ -14,9 +15,10 @@ class MoviesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $res = Http::get('http://localhost:3050');
+    public function index(Request $request)
+    {   
+        $page = $request->query('page', 1);
+        $res = Http::get("http://localhost:3050?page=${page}");
         $result = json_decode($res, true);
                 
         foreach( $result['results'] as $key => $item ){
@@ -30,7 +32,7 @@ class MoviesController extends Controller
         //randomize the result;
         shuffle($result['results']);
 
-        return view('home', ['data' => $result['results']] );
+        return view('home', ['data' => $result['results'], 'current_page' => $page] );
     }
 
     /**
@@ -77,6 +79,7 @@ class MoviesController extends Controller
                 "created_at" => $comment->created_at->format('jS F Y h:i:s A')
             ];
         }
+        
         return view('single', [
             'data' => $result['results'],
             'comments' => $commentResult
