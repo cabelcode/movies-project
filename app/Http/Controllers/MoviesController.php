@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -65,7 +67,22 @@ class MoviesController extends Controller
         // 
         $res = Http::get("http://localhost:3050/id/$id");
         $result = json_decode($res, true);
-        return view('single', ['data' => $result['results']]);
+
+        $comments = Comments::with('userInfo')->where( 'movie_id', $id )->orderBy('created_at')->get();
+        $commentResult = [];
+
+        foreach( $comments as $comment ){
+            $commentResult[] =
+            [ 
+                "comment" => $comment->comment,
+                "user" => $comment->userInfo->name,
+                "created_at" => $comment->created_at->format('jS F Y h:i:s A')
+            ];
+        }
+        return view('single', [
+            'data' => $result['results'],
+            'comments' => $commentResult
+        ]);
     }
 
     /**

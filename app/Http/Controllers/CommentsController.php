@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
@@ -14,7 +15,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-    
+        return redirect('/');
      
     }
 
@@ -36,14 +37,14 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {   
-        print_r($request->input('commentInput'));
-       /*  $comment = new Comments();
-        $comment->title = $request->input('book_title');
-        $comment->author = $request->input('book_author');
-        $comment->description = $request->input('book_description');
-        $comment->book_released = $request->input('book_year');
- */
-        //$comment->save();
+        if(Auth::user()){
+            $comment = new Comments();
+            $comment->comment = $request->input('commentInput');
+            $comment->movie_id = $request->input('movieId');
+            $comment->user_id = Auth::user()->id;
+            $comment->save();
+        }       
+        return redirect()->back();
     }
 
     /**

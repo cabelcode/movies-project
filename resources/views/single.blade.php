@@ -50,16 +50,25 @@
 
 
         @auth
-        <form class="comments-form" action="{{'comments.store'}}" method="POST">
+        <form class="comments-form" action="{{ route('comments.store') }}" method="POST">
             @csrf
             <textarea name="commentInput" rows="4"></textarea>
-            <input type="hidden" value="{{$data['imdbID']}}">
+            <input type="hidden" name="movieId" value="{{$data['imdbID']}}">
             <button class="comment-submit" type="submit">Submit</button>
         </form>
         @endauth
 
         <ul class="comments-container">
-            <li class="comments-item"></li>
+
+            @foreach ($comments as $comment)
+            <li class="comments-item">
+                <div class="comment">{{$comment['comment']}}</div>    
+                <div class="comment">{{$comment['user']}}</div>    
+                <div class="comment">{{$comment['created_at']}}</div>    
+            </li>
+            @endforeach
+
+            
         </ul>
 
     </div>
