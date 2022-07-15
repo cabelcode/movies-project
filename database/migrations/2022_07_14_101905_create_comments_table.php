@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('movie_id');
             $table->bigInteger('user_id')->unsigned();
+            $table->text('comment');
             $table->timestamps();
         });
 

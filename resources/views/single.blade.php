@@ -1,7 +1,7 @@
 @include('partials.header');
 
 <body class="antialiased">
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+    <div class="bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
         @if (Route::has('login'))
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 @auth
@@ -17,16 +17,50 @@
         @endif
 
         <div class="single-movie-container">
-            {{print_r($data)}}
+            <div class="movie-info">
+                <div class="title">
+                    <div>Tilte:</div>
+                    <div>{{$data['Title']}}</div>
+                </div>
+                <div class="year">
+                    <div>Year:</div>
+                    <div>{{$data['Year']}}</div>
+                </div>
+                <div class="genre">
+                    <div>Genre:</div>
+                    <div>{{$data['Genre']}}</div>
+                </div>
+                <div class="runtime">
+                    <div>Runtime:</div>
+                    <div>{{$data['Runtime']}}</div>
+                </div>
+                <div class="writer">
+                    <div>Writer:</div>
+                    <div>{{$data['Writer']}}</div>
+                </div>
+                <div class="plot">
+                    <div>Plot:</div>
+                    <div>{{$data['Plot']}}</div>
+                </div>
+            </div>
+            <div class="movie-poster">
+                <img src="{{$data['Poster']}}"/>
+            </div>
         </div>
 
-        <div class="comments">
-            <form {{ route('comments.store') }} method="POST">
-                @csrf
-                <textarea name="commentInput" rows="4"></textarea>
-                <input type="hidden" value="{{$data['imdbID']}}">
-            </form>
-        </div>
+
+        @auth
+        <form class="comments-form" action="{{'comments.store'}}" method="POST">
+            @csrf
+            <textarea name="commentInput" rows="4"></textarea>
+            <input type="hidden" value="{{$data['imdbID']}}">
+            <button class="comment-submit" type="submit">Submit</button>
+        </form>
+        @endauth
+
+        <ul class="comments-container">
+            <li class="comments-item"></li>
+        </ul>
 
     </div>
 

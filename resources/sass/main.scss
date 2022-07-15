@@ -16,4 +16,33 @@ main{
 }
 .single-movie-container{
     color: white;
+    display: flex;
+    flex-flow: row wrap;
+    .movie-info{
+        flex: 1 1 3fr;
+        min-width: 300px;
+        display: flex;
+        flex-flow: column nowrap;
+        & > div {
+            margin: 1rem;
+        }
+    }
+    .movie-poster{
+        flex: 1 1 1fr;   
+        min-width: 200px;
+        margin: 0px auto;
+    }
+}
+
+.comments-form{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    width: 90%;
+    margin: 0px auto;
+    margin-top: 3rem;
+}
+.comment-submit{
+    background-color: white;
+    color: black;
 }
