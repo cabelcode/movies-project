@@ -17,16 +17,12 @@
 
             <main>
 
-                <div class="search-container">
-
-                    <form action="{{ route('search') }}" method="POST">
-                        @csrf
-                        <label>Search:</label>
-                        <input type="text" name="search"/>
-                        <button type="submit">Submit</button>
-                    </form>
-
-                </div>
+                <form action="{{ route('search') }}" method="POST">
+                    @csrf
+                    <label>Search:</label>
+                    <input type="text" name="search"/>
+                    <button type="submit">Submit</button>
+                </form>
 
                 <div class="movie-container">
                     @foreach ($data as $item)

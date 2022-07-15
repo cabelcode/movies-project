@@ -18,8 +18,6 @@ class MoviesController extends Controller
     {
         $res = Http::get('http://localhost:3050');
         $result = json_decode($res, true);
-
-        //randomize the result;
                 
         foreach( $result['results'] as $key => $item ){
             
@@ -29,7 +27,7 @@ class MoviesController extends Controller
                 } 
             }
         }
-
+        //randomize the result;
         shuffle($result['results']);
 
         return view('home', ['data' => $result['results']] );
@@ -118,4 +116,31 @@ class MoviesController extends Controller
     {
         //
     }
+
+
+    public function search(Request $request){
+        
+        $title = $request->search;
+
+        $res = Http::get("http://localhost:3050/search/${title}");
+        $result = json_decode($res, true);
+
+        foreach( $result['results'] as $key => $item ){
+            
+            foreach( ['red', 'yellow', 'blue', 'green'] as $listColour){
+                if( preg_match("/${listColour}/i", $item["Title"], $matches) ){
+                    $result['results'][$key]['Colour'] = $matches[0];
+                } 
+            }
+        }
+        return view('search', ['data' => $result['results']]);
+
+    }
+
+    public function searchIndex(){
+        return view('search');
+
+    }
+
+        
 }

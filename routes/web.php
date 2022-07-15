@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
 
 
 Route::get( '/movie/{id}', [MoviesController::class, 'show'] )->name('movie');
+Route::get( '/search', fn() => redirect('/') );
+Route::post( '/search', [MoviesController::class, 'search'] )->name('search');
 
 Route::resource('comments', CommentsController::class);
 
